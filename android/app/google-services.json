@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "995143379602",
+    "project_id": "chegamlab-ffdd0",
+    "storage_bucket": "chegamlab-ffdd0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995143379602:android:c4fbe0ead3317638a7544b",
+        "android_client_info": {
+          "package_name": "com.example.chegamlab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995143379602-jcr9kd45b8pel056jqtn91cqju6rpmu1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzjDdncgcJOoaVUTPR8BAyfyjbSjtWS9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995143379602-jcr9kd45b8pel056jqtn91cqju6rpmu1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

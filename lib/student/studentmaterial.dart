@@ -1,22 +1,60 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:chegamlab/variabel/glosarium_item.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../variabel/color.dart';
 
-class Glosarium extends StatefulWidget {
-  const Glosarium({Key? key}) : super(key: key);
+class StudentMaterialPage extends StatefulWidget {
+  final int materi;
+  const StudentMaterialPage({
+    Key? key,
+    required this.materi,
+  }) : super(key: key);
 
   @override
-  State<Glosarium> createState() => _GlosariumState();
+  State<StudentMaterialPage> createState() {
+    return _StudentMaterialPageState(this.materi);
+  }
 }
 
-class _GlosariumState extends State<Glosarium> {
+class _StudentMaterialPageState extends State<StudentMaterialPage> {
+  var source;
+  final int materi;
+  _StudentMaterialPageState(this.materi);
+  @override
+  void initState() {
+    super.initState();
+    // Enable virtual display.
+    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+    if (materi == 0) {
+      source =
+          'https://drive.google.com/file/d/19cDkHJA6RuvblvbaF5_HzOxO17lo5R2j/view?usp=sharing';
+    } else if (materi == 1) {
+      source =
+          'https://drive.google.com/file/d/1A_KENowox_6cyCdzeIAMlbjsYrV6PJoC/view?usp=sharing';
+    } else if (materi == 2) {
+      source =
+          ' https://drive.google.com/file/d/1wz8iZdF-dOVBYdbg-i4tJ5HnXac2WAqK/view?usp=sharing';
+    } else if (materi == 3) {
+      source =
+          'https://drive.google.com/file/d/1gv-v5i9EkMLl7N-UAP3tcFUdrbcESoD5/view?usp=sharing';
+    } else if (materi == 4) {
+      source =
+          'https://drive.google.com/file/d/1EzZMn4PBBgpL-Wq0uNoIGBPTe2Tnp5mh/view?usp=drivesdk';
+    } else if (materi == 5) {
+      source = 'https://youtu.be/eGGNKAYWBRg';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
+    var _key = UniqueKey();
 
     return Stack(
       children: [
@@ -47,7 +85,7 @@ class _GlosariumState extends State<Glosarium> {
                         ),
                         child: Center(
                           child: Text(
-                            'Glosarium',
+                            'Modul Belajar',
                             style: TextStyle(
                               color: dark,
                               fontSize: 22,
@@ -65,43 +103,15 @@ class _GlosariumState extends State<Glosarium> {
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(26),
                     ),
-                    child: ListView.builder(
-                      itemCount: glosariumItem.length,
-                      itemBuilder: (BuildContext context, index) {
-                        return Container(
-                          padding: EdgeInsets.all(16),
-                          margin: EdgeInsets.symmetric(vertical: 8),
-                          decoration: BoxDecoration(
-                            color: primary.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                glosariumItem[index].nama,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                glosariumItem[index].deskripsi,
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                    child: WebView(
+                      key: _key,
+                      initialUrl: source,
+                      javascriptMode: JavascriptMode.unrestricted,
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),

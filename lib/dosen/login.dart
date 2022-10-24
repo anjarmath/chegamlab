@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:chegamlab/dosen/dashboardl.dart';
-import 'package:chegamlab/student/dashboards.dart';
 import 'package:flutter/material.dart';
 
 import '../auth/auth_method.dart';
@@ -23,7 +24,6 @@ class _LectureLoginState extends State<LectureLogin> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();

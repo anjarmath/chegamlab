@@ -2,9 +2,14 @@ import 'package:chegamlab/auth/auth_method.dart';
 import 'package:chegamlab/home.dart';
 import 'package:chegamlab/page_all_user/consultation.dart';
 import 'package:chegamlab/page_all_user/glosarium.dart';
+import 'package:chegamlab/student/list_materi.dart';
+import 'package:chegamlab/student/studentmaterial.dart';
 import 'package:chegamlab/student/profil.dart';
 import 'package:chegamlab/student/vlab.dart';
+import 'package:chegamlab/student/vlab_menu.dart';
 import 'package:chegamlab/variabel/utis.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../variabel/color.dart';
@@ -17,6 +22,37 @@ class StudentDashboard extends StatefulWidget {
 }
 
 class _StudentDashboardState extends State<StudentDashboard> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMarker();
+  }
+
+  Future<String> getMarker() async {
+    final data = await _firestore
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    if (data.data() == null) {
+      await _firestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({
+        'nama': 'user',
+        'nim': '0',
+        'pretest 4': 0,
+        'pretest 11': 0,
+        'posttest 4': 0,
+        'posttest 11': 0,
+      });
+    }
+    return 'sukses';
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -116,18 +152,11 @@ class _StudentDashboardState extends State<StudentDashboard> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () async {
-                              int res = await AuthMethods()
-                                  .getKelas(kelas: 'pertemuan 5');
-                              if (res == 1) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => VirtualLab()));
-                              } else {
-                                showSnackBar(
-                                    context, 'Akses tidak dibuka oleh Dosen');
-                              }
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => VlabMenu()));
                             },
                             child: Image.asset(
                               'assets/img/student/virtual_lab.png',
@@ -141,7 +170,12 @@ class _StudentDashboardState extends State<StudentDashboard> {
                         children: [
                           SizedBox(width: 50),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => ListMateri()));
+                            },
                             child: Image.asset(
                               'assets/img/student/material.png',
                               width: 90,

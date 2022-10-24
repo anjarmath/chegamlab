@@ -34,6 +34,9 @@ dependencies:
   flutter_svg: ^1.0.1
   cloud_firestore: ^3.1.17
   toggle_switch: ^2.0.1
+  webview_flutter: ^3.0.4
+  url_launcher: ^6.1.6
+  easy_pdf_viewer: ^1.0.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -72,6 +75,10 @@ flutter:
     - assets/img/student/
     - assets/img/dosen/
     - assets/img/lab/
+    - assets/img/lab/hasil/
+    - assets/img/lab/prepost/soalv4/
+    - assets/img/lab/prepost/soalv11/
+    - assets/info.pdf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

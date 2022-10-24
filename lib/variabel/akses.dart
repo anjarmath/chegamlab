@@ -69,7 +69,7 @@ class _AksesState extends State<Akses> {
                       await FirebaseFirestore.instance
                           .collection('kelas')
                           .doc('pertemuan $pertemuan')
-                          .set({'akses': ind}).whenComplete(() {
+                          .set({'akses': ind, 'p': pertemuan}).whenComplete(() {
                         showSnackBar(
                             context,
                             qs['akses'] == 0

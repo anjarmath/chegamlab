@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:chegamlab/dosen/nilai_mhs.dart';
 import 'package:flutter/material.dart';
 
 import '../variabel/color.dart';
@@ -83,7 +86,10 @@ class _AdministratorState extends State<Administrator> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) => NilaiMhs()));
+                          },
                           child: Image.asset(
                             'assets/img/penilaian tugas.png',
                             height: height,

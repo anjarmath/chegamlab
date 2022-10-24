@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:chegamlab/auth/auth_method.dart';
 import 'package:chegamlab/dosen/admin.dart';
 import 'package:chegamlab/dosen/akses_kelas.dart';

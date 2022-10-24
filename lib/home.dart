@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:chegamlab/dosen/dashboardl.dart';
 import 'package:chegamlab/dosen/login.dart';
 import 'package:chegamlab/student/dashboards.dart';

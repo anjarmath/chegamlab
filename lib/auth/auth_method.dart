@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthMethods {
@@ -18,7 +15,7 @@ class AuthMethods {
         await _firestore
             .collection('users')
             .doc(FirebaseAuth.instance.currentUser!.uid)
-            .set({
+            .update({
           'nama': nama,
           'nim': nim,
         });
@@ -27,6 +24,46 @@ class AuthMethods {
       } else {
         res = 'Oops! Isi semua data';
       }
+    } on FirebaseAuthException catch (err) {
+      return err.code;
+    }
+    return res;
+  }
+
+  Future<String> addNilaiPretest({
+    required int nilai,
+    required int pertemuan,
+  }) async {
+    String res = 'Ada error';
+    try {
+      await _firestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'pretest $pertemuan': nilai,
+      });
+
+      res = 'success';
+    } on FirebaseAuthException catch (err) {
+      return err.code;
+    }
+    return res;
+  }
+
+  Future<String> addNilaiPosttest({
+    required int nilai,
+    required int pertemuan,
+  }) async {
+    String res = 'Ada error';
+    try {
+      await _firestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'posttest $pertemuan': nilai,
+      });
+
+      res = 'success';
     } on FirebaseAuthException catch (err) {
       return err.code;
     }
@@ -43,7 +80,7 @@ class AuthMethods {
         await _firestore
             .collection('users')
             .doc(FirebaseAuth.instance.currentUser!.uid)
-            .set({
+            .update({
           'nama': nama,
           'nip': nip,
         });
@@ -68,8 +105,6 @@ class AuthMethods {
       if (email.isNotEmpty || password.isNotEmpty || nama.isNotEmpty) {
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-
-        print(cred.user!.uid);
 
         await _firestore.collection('users').doc(cred.user!.uid).set({
           'nama': nama,
